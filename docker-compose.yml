@@ -1,0 +1,15 @@
+# Use root/example as user/password credentials
+services:
+
+  db:
+    container_name: mysql_container
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_ROOT_PASSWORD: 1234
+    # (this is just an example, not intended to be a production configuration)
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./src/main/resources/db_init:/docker-entrypoint-initdb.d
