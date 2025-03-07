@@ -16,8 +16,13 @@
         <maven.compiler.source>23</maven.compiler.source>
         <junit.version>5.11.0</junit.version>
     </properties>
-
     <dependencies>
+        <!--Fix for Cannot resolve class 'com.mysql.jdbc.Driver'-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
         <dependency>
             <groupId>jakarta.ejb</groupId>
             <artifactId>jakarta.ejb-api</artifactId>
