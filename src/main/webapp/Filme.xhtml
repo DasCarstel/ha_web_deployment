@@ -7,12 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Aktuelle Filme</title>
-    <style type="text/css">
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        th { padding-top: 12px; padding-bottom: 12px; background-color: #4CAF50; color: white; }
-    </style>
+    <h:outputStylesheet library="css" name="KinoStyle.css"/>
 </h:head>
 <h:body>
     <h1>Aktuelle Filme</h1>
@@ -60,7 +55,7 @@
     </h:dataTable>
 
     <h:form>
-        <h:commandButton value="Aktualisieren" action="#{filmBean.getFilmList}">
+        <h:commandButton value="Aktualisieren" action="#{filmBean.getFilmList}" styleClass="btn">
             <f:ajax render="@form" />
         </h:commandButton>
     </h:form>
