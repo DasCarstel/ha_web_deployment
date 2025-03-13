@@ -2,8 +2,6 @@ package com.example.ha_web_deployment.beans;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
 import org.hibernate.Session;
@@ -19,7 +17,7 @@ import java.util.Map;
 @Named("filmBean")
 @RequestScoped
 public class FilmBean implements Serializable {
-    private static SessionFactory sessionFactory;
+    private static final SessionFactory sessionFactory;
     // Keine gespeicherte Liste mehr
 
     static {
@@ -87,20 +85,8 @@ public class FilmBean implements Serializable {
         return filmList;
     }
 
-    // Hilfsmethode zum Extrahieren von Daten für die JSF-Seite
-    public String getFreeSeatsSummary(String verfuegbarePlaetze) {
-        return verfuegbarePlaetze;
-    }
-
     @PreDestroy
     public void destroy() {
         // Nichts zu tun, da die SessionFactory statisch ist
-    }
-
-    // Diese Methode würde beim Herunterfahren der Anwendung aufgerufen werden
-    public static void closeSessionFactory() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-        }
     }
 }
