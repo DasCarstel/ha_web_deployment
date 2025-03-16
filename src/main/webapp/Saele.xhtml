@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Saalübersicht</title>
+    <h:outputStylesheet library="css" name="KinoStyle.css"/>
+</h:head>
+<h:body>
+    <h1>Saalübersicht für Vorstellung</h1>
+
+    <h:panelGrid columns="2" styleClass="details-panel">
+        <h:outputLabel value="Film:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.film.titel}" />
+
+        <h:outputLabel value="Datum und Uhrzeit:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
+        </h:outputText>
+
+        <h:outputLabel value="Saal:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.saal.saalId}" />
+
+        <h:outputLabel value="Ausstattung:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}" />
+    </h:panelGrid>
+
+    <h2>Verfügbare Plätze</h2>
+
+    <h:panelGrid columns="2" styleClass="details-panel">
+        <h:outputLabel value="Freie Parkettplätze:" />
+        <h:outputText value="#{saalBean.freieParkett}" />
+
+        <h:outputLabel value="Freie Logenplätze:" />
+        <h:outputText value="#{saalBean.freieLoge}" />
+    </h:panelGrid>
+
+    <h:form>
+        <h:commandButton value="Zurück zur Vorstellungsübersicht"
+                         action="Vorstellungen?faces-redirect=true"
+                         styleClass="btn" />
+    </h:form>
+</h:body>
+</html>

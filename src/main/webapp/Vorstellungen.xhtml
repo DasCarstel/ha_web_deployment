@@ -29,6 +29,13 @@
             <f:facet name="header">Ausstattung</f:facet>
             #{vorstellung.saal.ausstattung}
         </h:column>
+
+        <h:column>
+            <f:facet name="header">Aktion</f:facet>
+            <h:form>
+                <h:commandButton value="Buchen" action="#{saalBean.selectVorstellung(vorstellung)}" styleClass="btn" />
+            </h:form>
+        </h:column>
     </h:dataTable>
 
     <h:form>
