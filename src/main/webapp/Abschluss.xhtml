@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Buchungsbestätigung</title>
+    <h:outputStylesheet library="css" name="KinoStyle.css"/>
+</h:head>
+<h:body>
+    <h1>Herzlichen Dank für Ihre Buchung!</h1>
+
+    <div class="success-message">
+        <p>Ihre Tickets wurden erfolgreich gebucht.</p>
+        <p>Eine Bestätigung wurde an die E-Mail-Adresse <strong>#{gastBean.gast.email}</strong> gesendet.</p>
+    </div>
+
+    <div class="booking-summary">
+        <h2>Ihre Buchungsdetails:</h2>
+        <h:panelGrid columns="2" styleClass="details-panel">
+            <h:outputLabel value="Film:" />
+            <h:outputText value="#{saalBean.selectedVorstellung.film.titel}" />
+
+            <h:outputLabel value="Datum und Uhrzeit:" />
+            <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
+                <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
+            </h:outputText>
+
+            <h:outputLabel value="Saal:" />
+            <h:outputText value="#{saalBean.selectedVorstellung.saal.saalId}" />
+
+            <h:outputLabel value="Ausstattung:" />
+            <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}" />
+
+            <h:outputLabel value="Name:" />
+            <h:outputText value="#{gastBean.gast.name}" />
+
+            <h:outputLabel value="Anzahl Parkettplätze:" />
+            <h:outputText value="#{ticketBean.gebuchteParketplaetze}" />
+
+            <h:outputLabel value="Anzahl Logenplätze:" />
+            <h:outputText value="#{ticketBean.gebuchteLogenplaetze}" />
+        </h:panelGrid>
+    </div>
+
+    <h:form>
+        <h:commandButton value="Zurück zur Filmübersicht"
+                         action="Vorstellungen?faces-redirect=true"
+                         styleClass="btn" />
+    </h:form>
+</h:body>
+</html>
