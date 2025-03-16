@@ -4,31 +4,17 @@ import com.example.ha_web_deployment.models.Film;
 import com.example.ha_web_deployment.models.Vorstellung;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-import jakarta.annotation.PreDestroy;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named("vorstellungBean")
 @SessionScoped
-public class VorstellungBean implements Serializable {
-    private static final SessionFactory sessionFactory;
+public class VorstellungBean extends Bean {
     private Film selectedFilm;
-
-    static {
-        try {
-            sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        } catch (Throwable ex) {
-            System.err.println("Initial SessionFactory creation failed: " + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
 
     public VorstellungBean() {
         // Default-Konstruktor
@@ -53,7 +39,7 @@ public class VorstellungBean implements Serializable {
     private List<Vorstellung> loadVorstellungData(Integer filmId) {
         List<Vorstellung> vorstellungList = new ArrayList<>();
 
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = openSession()) {
             session.beginTransaction();
 
             // HQL verwenden, um Vorstellungen für den ausgewählten Film abzurufen
@@ -88,10 +74,5 @@ public class VorstellungBean implements Serializable {
 
     public void setSelectedFilm(Film selectedFilm) {
         this.selectedFilm = selectedFilm;
-    }
-
-    @PreDestroy
-    public void destroy() {
-        // Nichts zu tun, da die SessionFactory statisch ist
     }
 }
