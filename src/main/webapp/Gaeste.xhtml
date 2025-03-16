@@ -8,41 +8,103 @@
 <h:head>
     <title>Datenaufnahme</title>
     <h:outputStylesheet library="css" name="KinoStyle.css"/>
+    <script type="text/javascript">
+        function validateEmail(input) {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const valid = emailRegex.test(input.value);
+            const errorMessage = document.getElementById('emailError');
+
+            if (!valid &amp;&amp; input.value.length > 0) {
+                errorMessage.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+                errorMessage.style.display = "block";
+                return false;
+            } else {
+                errorMessage.style.display = "none";
+                return true;
+            }
+        }
+
+        function validateName(input) {
+            const nameRegex = /^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$/;
+            const valid = nameRegex.test(input.value) &amp;&amp; input.value.length >= 2;
+            const errorMessage = document.getElementById('nameError');
+
+            if (!valid &amp;&amp; input.value.length > 0) {
+                errorMessage.textContent = "Bitte geben Sie einen gültigen Namen ein";
+                errorMessage.style.display = "block";
+                return false;
+            } else {
+                errorMessage.style.display = "none";
+                return true;
+            }
+        }
+
+        function validateForm() {
+            return validateEmail(document.getElementById('form:email')) &amp;&amp;
+                validateName(document.getElementById('form:name'));
+        }
+    </script>
+    <style type="text/css">
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+            margin-left: 5px;
+        }
+    </style>
 </h:head>
 <h:body>
     <h:form>
-        <h:commandButton value="Zurück zur Platzauswahl" action="Saele?faces-redirect=true" styleClass="btn" immediate="true" />
+        <h:commandButton value="Zurück zur Platzauswahl" action="Saele?faces-redirect=true" styleClass="btn" immediate="true"/>
     </h:form>
     <h1>Datenaufnahme für Tickets</h1>
 
     <h:panelGrid columns="2" styleClass="details-panel">
-        <h:outputLabel value="Film:" />
-        <h:outputText value="#{saalBean.selectedVorstellung.film.titel}" />
+        <h:outputLabel value="Film:"/>
+        <h:outputText value="#{saalBean.selectedVorstellung.film.titel}"/>
 
-        <h:outputLabel value="Datum und Uhrzeit:" />
+        <h:outputLabel value="Datum und Uhrzeit:"/>
         <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
-            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
         </h:outputText>
 
-        <h:outputLabel value="Ausstattung:" />
-        <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}" />
+        <h:outputLabel value="Ausstattung:"/>
+        <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}"/>
 
-        <h:outputLabel value="Anzahl Parkettplätze:" />
-        <h:outputText value="#{ticketBean.parkettAnzahl}" />
+        <h:outputLabel value="Anzahl Parkettplätze:"/>
+        <h:outputText value="#{ticketBean.parkettAnzahl}"/>
 
-        <h:outputLabel value="Anzahl Logenplätze:" />
-        <h:outputText value="#{ticketBean.logenAnzahl}" />
+        <h:outputLabel value="Anzahl Logenplätze:"/>
+        <h:outputText value="#{ticketBean.logenAnzahl}"/>
     </h:panelGrid>
 
-    <h:form>
-        <h:panelGrid columns="2" styleClass="details-panel">
-            <h:outputLabel for="name" value="Name:" />
-            <h:inputText id="name" value="#{gastBean.gast.name}" required="true" requiredMessage="Bitte geben Sie Ihren Namen ein" />
+    <h:form id="form" onsubmit="return validateForm()">
+        <h:panelGrid columns="3" styleClass="details-panel">
+            <h:outputLabel for="name" value="Name:"/>
+            <h:inputText id="name" value="#{gastBean.gast.name}" required="true"
+                         requiredMessage="Bitte geben Sie Ihren Namen ein"
+                         onblur="validateName(this)">
+                <f:validateRegex pattern="^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$"/>
+                <f:ajax event="blur" render="nameMessage"/>
+            </h:inputText>
+            <h:panelGroup>
+                <div id="nameError" class="error-message"></div>
+                <h:message id="nameMessage" for="name" styleClass="error-message"/>
+            </h:panelGroup>
 
-            <h:outputLabel for="email" value="E-Mail:" />
-            <h:inputText id="email" value="#{gastBean.gast.email}" required="true" requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein" />
+            <h:outputLabel for="email" value="E-Mail:"/>
+            <h:inputText id="email" value="#{gastBean.gast.email}" required="true"
+                         requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein"
+                         onblur="validateEmail(this)">
+                <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+                <f:ajax event="blur" render="emailMessage"/>
+            </h:inputText>
+            <h:panelGroup>
+                <div id="emailError" class="error-message"></div>
+                <h:message id="emailMessage" for="email" styleClass="error-message"/>
+            </h:panelGroup>
 
-            <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn" />
+            <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn"/>
         </h:panelGrid>
     </h:form>
 </h:body>
