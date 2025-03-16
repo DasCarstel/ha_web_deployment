@@ -7,19 +7,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Datenaufnahme</title>
+    <!-- Mehrere Wege, CSS einzubinden, um Pfadprobleme zu umgehen -->
     <h:outputStylesheet library="css" name="KinoStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/KinoStyle.css"/>
     <script type="text/javascript">
         function validateEmail(input) {
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             const valid = emailRegex.test(input.value);
-            const errorMessage = document.getElementById('emailError');
+            const errorElement = document.getElementById('emailError');
 
             if (!valid &amp;&amp; input.value.length > 0) {
-                errorMessage.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
-                errorMessage.style.display = "block";
+                errorElement.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
                 return false;
             } else {
-                errorMessage.style.display = "none";
+                errorElement.className = "error-message";
+                input.className = input.className.replace(" input-error", "");
                 return true;
             }
         }
@@ -27,14 +31,16 @@
         function validateName(input) {
             const nameRegex = /^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$/;
             const valid = nameRegex.test(input.value) &amp;&amp; input.value.length >= 2;
-            const errorMessage = document.getElementById('nameError');
+            const errorElement = document.getElementById('nameError');
 
             if (!valid &amp;&amp; input.value.length > 0) {
-                errorMessage.textContent = "Bitte geben Sie einen gültigen Namen ein";
-                errorMessage.style.display = "block";
+                errorElement.textContent = "Bitte geben Sie einen gültigen Namen ein";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
                 return false;
             } else {
-                errorMessage.style.display = "none";
+                errorElement.className = "error-message";
+                input.className = input.className.replace(" input-error", "");
                 return true;
             }
         }
@@ -44,14 +50,6 @@
                 validateName(document.getElementById('form:name'));
         }
     </script>
-    <style type="text/css">
-        .error-message {
-            color: red;
-            font-size: 0.9em;
-            display: none;
-            margin-left: 5px;
-        }
-    </style>
 </h:head>
 <h:body>
     <h:form>
@@ -83,26 +81,24 @@
             <h:outputLabel for="name" value="Name:"/>
             <h:inputText id="name" value="#{gastBean.gast.name}" required="true"
                          requiredMessage="Bitte geben Sie Ihren Namen ein"
+                         styleClass="form-input"
                          onblur="validateName(this)">
-                <f:validateRegex pattern="^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$"/>
-                <f:ajax event="blur" render="nameMessage"/>
+                <f:validateRegex pattern="^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$">
+                    <f:attribute name="validatorMessage" value="Bitte geben Sie einen gültigen Namen ein"/>
+                </f:validateRegex>
             </h:inputText>
-            <h:panelGroup>
-                <div id="nameError" class="error-message"></div>
-                <h:message id="nameMessage" for="name" styleClass="error-message"/>
-            </h:panelGroup>
+            <div id="nameError" class="error-message"></div>
 
             <h:outputLabel for="email" value="E-Mail:"/>
             <h:inputText id="email" value="#{gastBean.gast.email}" required="true"
                          requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein"
+                         styleClass="form-input"
                          onblur="validateEmail(this)">
-                <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
-                <f:ajax event="blur" render="emailMessage"/>
+                <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                    <f:attribute name="validatorMessage" value="Bitte geben Sie eine gültige E-Mail-Adresse ein"/>
+                </f:validateRegex>
             </h:inputText>
-            <h:panelGroup>
-                <div id="emailError" class="error-message"></div>
-                <h:message id="emailMessage" for="email" styleClass="error-message"/>
-            </h:panelGroup>
+            <div id="emailError" class="error-message"></div>
 
             <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn"/>
         </h:panelGrid>

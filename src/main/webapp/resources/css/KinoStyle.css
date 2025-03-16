@@ -10,6 +10,7 @@
     --apple-card: #ffffff;
     --apple-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     --apple-radius: 12px;
+    --apple-error: #ff3b30;
 }
 
 /* Page layout */
@@ -101,6 +102,51 @@ h1 {
     transform: translateY(-1px);
 }
 
+/* Details Panel styling */
+.details-panel {
+    background-color: var(--apple-card);
+    box-shadow: var(--apple-shadow);
+    border-radius: var(--apple-radius);
+    padding: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Form input styling */
+.form-input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--apple-divider);
+    font-size: 15px;
+    width: 100%;
+    transition: border 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: var(--apple-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+
+.form-input.input-error {
+    border-color: var(--apple-error);
+}
+
+/* Error message styling */
+.error-message {
+    color: var(--apple-error);
+    font-size: 0.9em;
+    display: none;
+    margin-top: 5px;
+}
+
+.error-message.visible {
+    display: block;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     body {
@@ -119,5 +165,9 @@ h1 {
 
     .btn {
         width: 100%;
+    }
+
+    .details-panel {
+        padding: 15px;
     }
 }
