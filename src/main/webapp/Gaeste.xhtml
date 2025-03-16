@@ -10,6 +10,9 @@
     <h:outputStylesheet library="css" name="KinoStyle.css"/>
 </h:head>
 <h:body>
+    <h:form>
+        <h:commandButton value="Zurück zur Platzauswahl" action="Saele?faces-redirect=true" styleClass="btn" immediate="true" />
+    </h:form>
     <h1>Datenaufnahme für Tickets</h1>
 
     <h:panelGrid columns="2" styleClass="details-panel">
@@ -40,7 +43,6 @@
             <h:inputText id="email" value="#{gastBean.gast.email}" required="true" requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein" />
 
             <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn" />
-            <h:commandButton value="Zurück zur Saalansicht" action="Saele?faces-redirect=true" styleClass="btn" immediate="true" />
         </h:panelGrid>
     </h:form>
 </h:body>
