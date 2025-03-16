@@ -7,9 +7,6 @@ import jakarta.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Named("saalBean")
 @SessionScoped
 public class SaalBean extends Bean {
