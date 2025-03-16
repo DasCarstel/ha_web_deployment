@@ -35,7 +35,7 @@ public class FilmBean implements Serializable {
     }
 
     /**
-     * Lädt die Filmdaten aus der Datenbank bei jedem Aufruf
+     * LÃ¤dt die Filmdaten aus der Datenbank bei jedem Aufruf
      * @return Liste von Film-Daten als Maps
      */
     public List<Map<String, Object>> getFilmList() {
@@ -49,29 +49,21 @@ public class FilmBean implements Serializable {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            // Native SQL-Query verwenden (anstelle von HQL)
-            String sql = "SELECT f.Film_ID, f.Titel, f.Genre, f.Dauer, " +
-                    "v.Vorstellungs_ID, v.Vorfuehrungszeit, v.Saal_ID, " +
-                    "FreeSeats(v.Vorstellungs_ID) as VerfuegbarePlaetze " +
+            // Angepasste SQL-Abfrage, die nur die benötigten Daten abruft
+            String sql = "SELECT f.Titel, f.Genre, f.Dauer " +
                     "FROM Film f " +
-                    "JOIN Vorstellung v ON f.Film_ID = v.Film_ID " +
-                    "WHERE v.Vorfuehrungszeit > NOW() " +
-                    "ORDER BY v.Vorfuehrungszeit";
+                    "GROUP BY f.Film_ID " +
+                    "ORDER BY f.Titel";
 
             var query = session.createNativeQuery(sql, Object[].class);
             List<Object[]> results = query.getResultList();
 
-            // Ergebnisse in eine Liste von Maps umwandeln
+            // Ergebnisse in eine Liste von Maps umwandeln, nur mit den benötigten Feldern
             for (Object[] row : results) {
                 Map<String, Object> filmData = new HashMap<>();
-                filmData.put("filmId", row[0]);
-                filmData.put("titel", row[1]);
-                filmData.put("genre", row[2]);
-                filmData.put("dauer", row[3]);
-                filmData.put("vorstellungsId", row[4]);
-                filmData.put("vorfuehrungszeit", row[5]);
-                filmData.put("saalId", row[6]);
-                filmData.put("verfuegbarePlaetze", row[7]);
+                filmData.put("titel", row[0]);
+                filmData.put("genre", row[1]);
+                filmData.put("dauer", row[2]);
                 filmList.add(filmData);
             }
 

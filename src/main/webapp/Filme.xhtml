@@ -14,11 +14,6 @@
 
     <h:dataTable value="#{filmBean.filmList}" var="film" styleClass="table">
         <h:column>
-            <f:facet name="header">Film ID</f:facet>
-            #{film.filmId}
-        </h:column>
-
-        <h:column>
             <f:facet name="header">Titel</f:facet>
             #{film.titel}
         </h:column>
@@ -31,26 +26,6 @@
         <h:column>
             <f:facet name="header">Dauer (Minuten)</f:facet>
             #{film.dauer}
-        </h:column>
-
-        <h:column>
-            <f:facet name="header">Vorstellungs ID</f:facet>
-            #{film.vorstellungsId}
-        </h:column>
-
-        <h:column>
-            <f:facet name="header">Vorführungszeit</f:facet>
-            #{film.vorfuehrungszeit}
-        </h:column>
-
-        <h:column>
-            <f:facet name="header">Saal</f:facet>
-            #{film.saalId}
-        </h:column>
-
-        <h:column>
-            <f:facet name="header">Verfügbare Plätze</f:facet>
-            #{film.verfuegbarePlaetze}
         </h:column>
     </h:dataTable>
 
