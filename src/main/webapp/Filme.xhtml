@@ -15,7 +15,9 @@
     <h:dataTable value="#{filmBean.filmList}" var="film" styleClass="table">
         <h:column>
             <f:facet name="header">Titel</f:facet>
-            #{film.titel}
+            <h:form>
+                <h:commandLink action="#{vorstellungBean.selectFilm(film)}" value="#{film.titel}" />
+            </h:form>
         </h:column>
 
         <h:column>
