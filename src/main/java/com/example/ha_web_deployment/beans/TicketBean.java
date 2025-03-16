@@ -22,6 +22,9 @@ public class TicketBean extends Bean implements Serializable {
     @Inject
     private SaalBean saalBean;
 
+    @Inject
+    private GastBean gastBean;
+
     public TicketBean() {
         // Default-Konstruktor
     }
@@ -68,9 +71,14 @@ public class TicketBean extends Bean implements Serializable {
 
             session.getTransaction().commit();
 
-            // Nach erfolgreicher Buchung nur die Eingabefelder zurücksetzen
+            // Nach erfolgreicher Buchung die Eingabefelder zurücksetzen
             parkettAnzahl = 0;
             logenAnzahl = 0;
+
+            // Gastdaten zurücksetzen, um neue Buchungen zu ermöglichen
+            if (gastBean != null) {
+                gastBean.resetGast();
+            }
 
             return "Abschluss?faces-redirect=true";
         } catch (Exception e) {
