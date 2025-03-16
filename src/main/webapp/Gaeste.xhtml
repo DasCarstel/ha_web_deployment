@@ -57,51 +57,73 @@
     </h:form>
     <h1>Datenaufnahme für Tickets</h1>
 
-    <h:panelGrid columns="2" styleClass="details-panel">
-        <h:outputLabel value="Film:"/>
-        <h:outputText value="#{saalBean.selectedVorstellung.film.titel}"/>
+    <div class="details-panel info-panel">
+        <div class="info-row">
+            <div class="info-label">Film:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.film.titel}</div>
+        </div>
 
-        <h:outputLabel value="Datum und Uhrzeit:"/>
-        <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
-            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
-        </h:outputText>
+        <div class="info-row">
+            <div class="info-label">Datum und Uhrzeit:</div>
+            <div class="info-value">
+                <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
+                    <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                </h:outputText>
+            </div>
+        </div>
 
-        <h:outputLabel value="Ausstattung:"/>
-        <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}"/>
+        <div class="info-row">
+            <div class="info-label">Ausstattung:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.saal.ausstattung}</div>
+        </div>
 
-        <h:outputLabel value="Anzahl Parkettplätze:"/>
-        <h:outputText value="#{ticketBean.parkettAnzahl}"/>
+        <div class="info-row">
+            <div class="info-label">Anzahl Parkettplätze:</div>
+            <div class="info-value">#{ticketBean.parkettAnzahl}</div>
+        </div>
 
-        <h:outputLabel value="Anzahl Logenplätze:"/>
-        <h:outputText value="#{ticketBean.logenAnzahl}"/>
-    </h:panelGrid>
+        <div class="info-row">
+            <div class="info-label">Anzahl Logenplätze:</div>
+            <div class="info-value">#{ticketBean.logenAnzahl}</div>
+        </div>
+    </div>
 
     <h:form id="form" onsubmit="return validateForm()">
-        <h:panelGrid columns="3" styleClass="details-panel">
-            <h:outputLabel for="name" value="Name:"/>
-            <h:inputText id="name" value="#{gastBean.gast.name}" required="true"
-                         requiredMessage="Bitte geben Sie Ihren Namen ein"
-                         styleClass="form-input"
-                         onblur="validateName(this)">
-                <f:validateRegex pattern="^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$">
-                    <f:attribute name="validatorMessage" value="Bitte geben Sie einen gültigen Namen ein"/>
-                </f:validateRegex>
-            </h:inputText>
-            <div id="nameError" class="error-message"></div>
+        <div class="details-panel input-panel">
+            <div class="form-row">
+                <div class="form-label">Name:</div>
+                <div class="form-input-container">
+                    <div id="nameError" class="error-message"></div>
+                    <h:inputText id="name" value="#{gastBean.gast.name}" required="true"
+                                 requiredMessage="Bitte geben Sie Ihren Namen ein"
+                                 styleClass="form-input"
+                                 onblur="validateName(this)">
+                        <f:validateRegex pattern="^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$">
+                            <f:attribute name="validatorMessage" value="Bitte geben Sie einen gültigen Namen ein"/>
+                        </f:validateRegex>
+                    </h:inputText>
+                </div>
+            </div>
 
-            <h:outputLabel for="email" value="E-Mail:"/>
-            <h:inputText id="email" value="#{gastBean.gast.email}" required="true"
-                         requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein"
-                         styleClass="form-input"
-                         onblur="validateEmail(this)">
-                <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-                    <f:attribute name="validatorMessage" value="Bitte geben Sie eine gültige E-Mail-Adresse ein"/>
-                </f:validateRegex>
-            </h:inputText>
-            <div id="emailError" class="error-message"></div>
+            <div class="form-row">
+                <div class="form-label">E-Mail:</div>
+                <div class="form-input-container">
+                    <div id="emailError" class="error-message"></div>
+                    <h:inputText id="email" value="#{gastBean.gast.email}" required="true"
+                                 requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein"
+                                 styleClass="form-input"
+                                 onblur="validateEmail(this)">
+                        <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                            <f:attribute name="validatorMessage" value="Bitte geben Sie eine gültige E-Mail-Adresse ein"/>
+                        </f:validateRegex>
+                    </h:inputText>
+                </div>
+            </div>
 
-            <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn"/>
-        </h:panelGrid>
+            <div class="button-container">
+                <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn"/>
+            </div>
+        </div>
     </h:form>
 </h:body>
 </html>
