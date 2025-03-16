@@ -8,8 +8,30 @@
 <h:head>
     <title>Saalübersicht</title>
     <h:outputStylesheet library="css" name="KinoStyle.css"/>
+    <script type="text/javascript">
+        function validateTicketAmount() {
+            var parkettInput = document.getElementById('ticketForm:parkettAnzahl');
+            var logenInput = document.getElementById('ticketForm:logenAnzahl');
+
+            var parkettAnzahl = parseInt(parkettInput.value) || 0;
+            var logenAnzahl = parseInt(logenInput.value) || 0;
+            var gesamtAnzahl = parkettAnzahl + logenAnzahl;
+
+            if (gesamtAnzahl > 20) {
+                alert("Bei Bestellungen von mehr als 20 Tickets bitten wir Sie, telefonisch Kontakt mit uns aufzunehmen.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </h:head>
 <h:body>
+    <h:form>
+        <h:commandButton value="Zurück zur Vorstellungsübersicht"
+                         action="Vorstellungen?faces-redirect=true"
+                         styleClass="btn" />
+    </h:form>
+
     <h1>Saalübersicht für Vorstellung</h1>
 
     <h:panelGrid columns="2" styleClass="details-panel">
@@ -36,12 +58,23 @@
 
         <h:outputLabel value="Freie Logenplätze:" />
         <h:outputText value="#{saalBean.freieLoge}" />
-    </h:panelGrid>
 
-    <h:form>
-        <h:commandButton value="Zurück zur Vorstellungsübersicht"
-                         action="Vorstellungen?faces-redirect=true"
-                         styleClass="btn" />
-    </h:form>
+        <h:form id="ticketForm">
+            <h:outputLabel for="parkettAnzahl" value="Anzahl Parkettplätze:" />
+            <h:inputText id="parkettAnzahl" value="#{ticketBean.parkettAnzahl}" required="true" requiredMessage="Bitte geben Sie eine Anzahl ein">
+                <f:validateLongRange minimum="0" />
+            </h:inputText>
+
+            <h:outputLabel for="logenAnzahl" value="Anzahl Logenplätze:" />
+            <h:inputText id="logenAnzahl" value="#{ticketBean.logenAnzahl}" required="true" requiredMessage="Bitte geben Sie eine Anzahl ein">
+                <f:validateLongRange minimum="0" />
+            </h:inputText>
+
+            <h:commandButton value="Weiter zur Datenaufnahme"
+                             action="#{ticketBean.weiterZurDatenaufnahme}"
+                             styleClass="btn"
+                             onclick="return validateTicketAmount();" />
+        </h:form>
+    </h:panelGrid>
 </h:body>
 </html>

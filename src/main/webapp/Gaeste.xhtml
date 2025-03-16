@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Datenaufnahme</title>
+    <h:outputStylesheet library="css" name="KinoStyle.css"/>
+</h:head>
+<h:body>
+    <h1>Datenaufnahme für Tickets</h1>
+
+    <h:panelGrid columns="2" styleClass="details-panel">
+        <h:outputLabel value="Film:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.film.titel}" />
+
+        <h:outputLabel value="Datum und Uhrzeit:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
+            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
+        </h:outputText>
+
+        <h:outputLabel value="Anzahl Parkettplätze:" />
+        <h:outputText value="#{ticketBean.parkettAnzahl}" />
+
+        <h:outputLabel value="Anzahl Logenplätze:" />
+        <h:outputText value="#{ticketBean.logenAnzahl}" />
+    </h:panelGrid>
+
+    <h:form>
+        <h:panelGrid columns="2" styleClass="details-panel">
+            <h:outputLabel for="name" value="Name:" />
+            <h:inputText id="name" value="#{gastBean.gast.name}" required="true" requiredMessage="Bitte geben Sie Ihren Namen ein" />
+
+            <h:outputLabel for="email" value="E-Mail:" />
+            <h:inputText id="email" value="#{gastBean.gast.email}" required="true" requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein" />
+
+            <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn" />
+            <h:commandButton value="Zurück zur Saalansicht" action="Saele?faces-redirect=true" styleClass="btn" immediate="true" />
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
