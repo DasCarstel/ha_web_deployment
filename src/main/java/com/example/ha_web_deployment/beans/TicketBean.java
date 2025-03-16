@@ -19,6 +19,10 @@ public class TicketBean extends Bean implements Serializable {
     private Integer gebuchteParketplaetze = 0;
     private Integer gebuchteLogenplaetze = 0;
 
+    // Für die Bestätigungsseite
+    private String gastName;
+    private String gastEmail;
+
     @Inject
     private SaalBean saalBean;
 
@@ -59,6 +63,10 @@ public class TicketBean extends Bean implements Serializable {
             gebuchteParketplaetze = parkettAnzahl;
             gebuchteLogenplaetze = logenAnzahl;
 
+            // Gastdaten für die Bestätigungsseite speichern
+            this.gastName = gast.getName();
+            this.gastEmail = gast.getEmail();
+
             // Ruft die Stored Procedure auf, um die Tickets zu erstellen
             String sql = "CALL CreateTickets(:vorstellungsId, :gastId, :parkettCount, :logeCount)";
             NativeQuery<?> query = session.createNativeQuery(sql);
@@ -96,6 +104,8 @@ public class TicketBean extends Bean implements Serializable {
         logenAnzahl = 0;
         gebuchteParketplaetze = 0;
         gebuchteLogenplaetze = 0;
+        gastName = null;
+        gastEmail = null;
     }
 
     // Getter und Setter
@@ -121,5 +131,13 @@ public class TicketBean extends Bean implements Serializable {
 
     public Integer getGebuchteLogenplaetze() {
         return gebuchteLogenplaetze;
+    }
+
+    public String getGastName() {
+        return gastName;
+    }
+
+    public String getGastEmail() {
+        return gastEmail;
     }
 }
