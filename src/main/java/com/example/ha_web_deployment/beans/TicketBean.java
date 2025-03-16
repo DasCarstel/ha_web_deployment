@@ -1,8 +1,6 @@
 package com.example.ha_web_deployment.beans;
 
 import com.example.ha_web_deployment.models.Gast;
-import com.example.ha_web_deployment.models.Ticket;
-import com.example.ha_web_deployment.models.Vorstellung;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
@@ -16,6 +14,10 @@ import java.io.Serializable;
 public class TicketBean extends Bean implements Serializable {
     private Integer parkettAnzahl = 0;
     private Integer logenAnzahl = 0;
+
+    // Speichert die Anzahl für die Bestätigungsseite
+    private Integer gebuchteParketplaetze = 0;
+    private Integer gebuchteLogenplaetze = 0;
 
     @Inject
     private SaalBean saalBean;
@@ -50,6 +52,10 @@ public class TicketBean extends Bean implements Serializable {
         try (Session session = openSession()) {
             session.beginTransaction();
 
+            // Anzahlen für die Bestätigungsseite speichern
+            gebuchteParketplaetze = parkettAnzahl;
+            gebuchteLogenplaetze = logenAnzahl;
+
             // Ruft die Stored Procedure auf, um die Tickets zu erstellen
             String sql = "CALL CreateTickets(:vorstellungsId, :gastId, :parkettCount, :logeCount)";
             NativeQuery<?> query = session.createNativeQuery(sql);
@@ -62,10 +68,11 @@ public class TicketBean extends Bean implements Serializable {
 
             session.getTransaction().commit();
 
-            // Nach erfolgreicher Buchung die Werte zurücksetzen
-            resetWerte();
+            // Nach erfolgreicher Buchung nur die Eingabefelder zurücksetzen
+            parkettAnzahl = 0;
+            logenAnzahl = 0;
 
-            return "BuchungsBestaetigung?faces-redirect=true";
+            return "Abschluss?faces-redirect=true";
         } catch (Exception e) {
             System.err.println("Fehler bei der Buchung: " + e.getMessage());
             e.printStackTrace();
@@ -74,11 +81,13 @@ public class TicketBean extends Bean implements Serializable {
     }
 
     /**
-     * Setzt alle Werte zurück nach erfolgreicher Buchung
+     * Setzt alle Werte zurück für eine neue Buchung
      */
-    private void resetWerte() {
+    public void resetAllWerte() {
         parkettAnzahl = 0;
         logenAnzahl = 0;
+        gebuchteParketplaetze = 0;
+        gebuchteLogenplaetze = 0;
     }
 
     // Getter und Setter
@@ -96,5 +105,13 @@ public class TicketBean extends Bean implements Serializable {
 
     public void setLogenAnzahl(Integer logenAnzahl) {
         this.logenAnzahl = logenAnzahl;
+    }
+
+    public Integer getGebuchteParketplaetze() {
+        return gebuchteParketplaetze;
+    }
+
+    public Integer getGebuchteLogenplaetze() {
+        return gebuchteLogenplaetze;
     }
 }

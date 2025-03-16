@@ -3,18 +3,23 @@ package com.example.ha_web_deployment.beans;
 import com.example.ha_web_deployment.models.Film;
 import com.example.ha_web_deployment.models.Vorstellung;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named("vorstellungBean")
 @SessionScoped
-public class VorstellungBean extends Bean {
+public class VorstellungBean extends Bean implements Serializable {
     private Film selectedFilm;
+
+    @Inject
+    private TicketBean ticketBean;
 
     public VorstellungBean() {
         // Default-Konstruktor
@@ -64,6 +69,8 @@ public class VorstellungBean extends Bean {
      */
     public String selectFilm(Film film) {
         this.selectedFilm = film;
+        // TicketBean zurücksetzen, wenn ein neuer Film ausgewählt wird
+        ticketBean.resetAllWerte();
         return "Vorstellungen?faces-redirect=true";
     }
 
