@@ -21,6 +21,9 @@
             <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
         </h:outputText>
 
+        <h:outputLabel value="Ausstattung:" />
+        <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}" />
+
         <h:outputLabel value="Anzahl Parkettplätze:" />
         <h:outputText value="#{ticketBean.parkettAnzahl}" />
 
