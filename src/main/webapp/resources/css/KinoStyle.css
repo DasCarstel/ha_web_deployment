@@ -48,7 +48,6 @@ h1 {
     overflow: hidden;
 }
 
-/* Ergänzen Sie diese Regeln in Ihrer KinoStyle.css */
 .table td {
     padding: 16px 20px;
     border-bottom: 1px solid var(--apple-divider);
@@ -64,13 +63,6 @@ h1 {
     padding: 16px 20px;
     background-color: var(--apple-card);
     border-bottom: 1px solid var(--apple-divider);
-}
-
-.table td {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--apple-divider);
-    color: var(--apple-text);
-    font-size: 15px;
 }
 
 .table tr:last-child td {
