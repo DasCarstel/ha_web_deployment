@@ -48,11 +48,19 @@ h1 {
     overflow: hidden;
 }
 
+/* Ergänzen Sie diese Regeln in Ihrer KinoStyle.css */
+.table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--apple-divider);
+    color: var(--apple-text);
+    font-size: 18px; /* vergrößerte Schrift */
+}
+
 .table th {
     color: var(--apple-text);
     font-weight: 500;
     text-transform: none;
-    font-size: 14px;
+    font-size: 16px; /* vergrößerte Schrift */
     padding: 16px 20px;
     background-color: var(--apple-card);
     border-bottom: 1px solid var(--apple-divider);

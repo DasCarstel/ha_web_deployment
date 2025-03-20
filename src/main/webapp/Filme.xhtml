@@ -16,18 +16,18 @@
         <h:column>
             <f:facet name="header">Titel</f:facet>
             <h:form>
-                <h:commandLink action="#{vorstellungBean.selectFilm(film)}" value="#{film.titel}" />
+                <h:commandLink action="#{vorstellungBean.selectFilm(film)}" value="#{film.titel.replace('_', ' ')}" style="text-decoration: none;" />
             </h:form>
         </h:column>
 
         <h:column>
             <f:facet name="header">Genre</f:facet>
-            #{film.genre}
+            <h:outputText value="#{film.genre}" style="display: block; text-align: center;" />
         </h:column>
 
         <h:column>
-            <f:facet name="header">Dauer (Minuten)</f:facet>
-            #{film.dauer}
+            <f:facet name="header">Dauer</f:facet>
+            <h:outputText value="#{film.dauer} min" style="display: block; text-align: center;" />
         </h:column>
     </h:dataTable>
 
