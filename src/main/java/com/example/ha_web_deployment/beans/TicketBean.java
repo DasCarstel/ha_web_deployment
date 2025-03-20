@@ -1,17 +1,17 @@
 package com.example.ha_web_deployment.beans;
 
 import com.example.ha_web_deployment.models.Gast;
+import com.example.ha_web_deployment.models.Ticket;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
-import java.io.Serializable;
 
 @Named("ticketBean")
 @SessionScoped
-public class TicketBean extends Bean implements Serializable {
+public class TicketBean extends Bean {
     private Integer parkettAnzahl = 0;
     private Integer logenAnzahl = 0;
 
@@ -69,7 +69,7 @@ public class TicketBean extends Bean implements Serializable {
 
             // Ruft die Stored Procedure auf, um die Tickets zu erstellen
             String sql = "CALL CreateTickets(:vorstellungsId, :gastId, :parkettCount, :logeCount)";
-            NativeQuery<?> query = session.createNativeQuery(sql);
+            NativeQuery<?> query = session.createNativeQuery(sql, Ticket.class);
             query.setParameter("vorstellungsId", saalBean.getSelectedVorstellung().getVorstellungsId());
             query.setParameter("gastId", gast.getGastId());
             query.setParameter("parkettCount", parkettAnzahl);

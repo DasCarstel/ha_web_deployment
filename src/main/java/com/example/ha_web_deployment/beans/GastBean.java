@@ -4,11 +4,10 @@ import com.example.ha_web_deployment.models.Gast;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.Serializable;
 
 @Named("gastBean")
 @SessionScoped
-public class GastBean extends Bean implements Serializable {
+public class GastBean extends Bean {
     private Gast gast = new Gast();
 
     @Inject

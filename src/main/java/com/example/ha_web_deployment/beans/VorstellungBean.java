@@ -9,13 +9,12 @@ import jakarta.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named("vorstellungBean")
 @SessionScoped
-public class VorstellungBean extends Bean implements Serializable {
+public class VorstellungBean extends Bean {
     private Film selectedFilm;
 
     @Inject
