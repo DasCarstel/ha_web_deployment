@@ -27,7 +27,7 @@
 
         <h:column>
             <f:facet name="header">Dauer</f:facet>
-            <h:outputText value="#{film.dauer} min" style="display: block; text-align: center;" />
+            <h:outputText value="#{(film.dauer).intValue()} min" style="display: block; text-align: center;" />
         </h:column>
     </h:dataTable>
 
