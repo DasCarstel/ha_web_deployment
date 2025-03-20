@@ -1,7 +1,3 @@
-Hier ist die aktualisierte Anleitung mit den gewünschten Ergänzungen:
-
----
-
 # Anleitung zum Import eines Jakarta Maven Projekts von IntelliJ nach NetBeans
 
 Diese Anleitung beschreibt, wie du dein Jakarta Maven Projekt von IntelliJ nach NetBeans migrieren kannst. Es handelt sich um eine Jakarta EE Webanwendung mit Maven als Build-Management-Tool.
