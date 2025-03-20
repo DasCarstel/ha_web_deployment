@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Datenaufnahme</title>
+    <!-- Mehrere Wege, CSS einzubinden, um Pfadprobleme zu umgehen -->
+    <h:outputStylesheet library="css" name="KinoStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/KinoStyle.css"/>
+    <script type="text/javascript">
+        function validateEmail(input) {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const valid = emailRegex.test(input.value);
+            const errorElement = document.getElementById('emailError');
+
+            if (!valid &amp;&amp; input.value.length > 0) {
+                errorElement.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
+                return false;
+            } else {
+                errorElement.className = "error-message";
+                input.className = input.className.replace(" input-error", "");
+                return true;
+            }
+        }
+
+        function validateName(input) {
+            const nameRegex = /^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$/;
+            const valid = nameRegex.test(input.value) &amp;&amp; input.value.length >= 2;
+            const errorElement = document.getElementById('nameError');
+
+            if (!valid &amp;&amp; input.value.length > 0) {
+                errorElement.textContent = "Bitte geben Sie einen gültigen Namen ein";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
+                return false;
+            } else {
+                errorElement.className = "error-message";
+                input.className = input.className.replace(" input-error", "");
+                return true;
+            }
+        }
+
+        function validateForm() {
+            return validateEmail(document.getElementById('form:email')) &amp;&amp;
+                validateName(document.getElementById('form:name'));
+        }
+    </script>
+</h:head>
+<h:body>
+    <h:form>
+        <h:commandButton value="Zurück zur Platzauswahl" action="Saele?faces-redirect=true" styleClass="btn" immediate="true"/>
+    </h:form>
+    <h1>Datenaufnahme für Tickets</h1>
+
+    <div class="details-panel info-panel">
+        <div class="info-row">
+            <div class="info-label">Film:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.film.titel}</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Datum und Uhrzeit:</div>
+            <div class="info-value">
+                <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
+                    <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                </h:outputText>
+            </div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Ausstattung:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.saal.ausstattung}</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Anzahl Parkettplätze:</div>
+            <div class="info-value">#{ticketBean.parkettAnzahl}</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Anzahl Logenplätze:</div>
+            <div class="info-value">#{ticketBean.logenAnzahl}</div>
+        </div>
+    </div>
+
+    <h:form id="form" onsubmit="return validateForm()">
+        <div class="details-panel input-panel">
+            <div class="form-row">
+                <div class="form-label">Name:</div>
+                <div class="form-input-container">
+                    <div id="nameError" class="error-message"></div>
+                    <h:inputText id="name" value="#{gastBean.gast.name}" required="true"
+                                 requiredMessage="Bitte geben Sie Ihren Namen ein"
+                                 styleClass="form-input"
+                                 onblur="validateName(this)">
+                        <f:validateRegex pattern="^[a-zA-ZäöüÄÖÜß]+(([',. -][a-zA-ZäöüÄÖÜß ])?[a-zA-ZäöüÄÖÜß]*)*$">
+                            <f:attribute name="validatorMessage" value="Bitte geben Sie einen gültigen Namen ein"/>
+                        </f:validateRegex>
+                    </h:inputText>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">E-Mail:</div>
+                <div class="form-input-container">
+                    <div id="emailError" class="error-message"></div>
+                    <h:inputText id="email" value="#{gastBean.gast.email}" required="true"
+                                 requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein"
+                                 styleClass="form-input"
+                                 onblur="validateEmail(this)">
+                        <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                            <f:attribute name="validatorMessage" value="Bitte geben Sie eine gültige E-Mail-Adresse ein"/>
+                        </f:validateRegex>
+                    </h:inputText>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <h:commandButton value="Tickets buchen" action="#{gastBean.buchungInitiieren}" styleClass="btn"/>
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>

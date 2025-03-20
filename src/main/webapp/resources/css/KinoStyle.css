@@ -10,6 +10,7 @@
     --apple-card: #ffffff;
     --apple-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     --apple-radius: 12px;
+    --apple-error: #ff3b30;
 }
 
 /* Page layout */
@@ -47,21 +48,21 @@ h1 {
     overflow: hidden;
 }
 
-.table th {
-    color: var(--apple-text);
-    font-weight: 500;
-    text-transform: none;
-    font-size: 14px;
-    padding: 16px 20px;
-    background-color: var(--apple-card);
-    border-bottom: 1px solid var(--apple-divider);
-}
-
 .table td {
     padding: 16px 20px;
     border-bottom: 1px solid var(--apple-divider);
     color: var(--apple-text);
-    font-size: 15px;
+    font-size: 18px; /* vergrößerte Schrift */
+}
+
+.table th {
+    color: var(--apple-text);
+    font-weight: 500;
+    text-transform: none;
+    font-size: 16px; /* vergrößerte Schrift */
+    padding: 16px 20px;
+    background-color: var(--apple-card);
+    border-bottom: 1px solid var(--apple-divider);
 }
 
 .table tr:last-child td {
@@ -85,20 +86,122 @@ h1 {
     border-radius: 980px; /* Apple's rounded buttons */
     font-size: 15px;
     font-weight: 500;
-    margin-top: 20px;
     transition: all 0.2s ease;
     border: none;
     cursor: pointer;
-    text-align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline-block;
+    min-width: 150px;
 }
 
 .btn:hover {
     background-color: var(--apple-accent-hover);
     box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
     transform: translateY(-1px);
+}
+
+/* Details Panel styling */
+.details-panel {
+    background-color: var(--apple-card);
+    box-shadow: var(--apple-shadow);
+    border-radius: var(--apple-radius);
+    padding: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+/* Information panel (first gray box) */
+.info-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Input panel (second gray box) */
+.input-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Info row styling */
+.info-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 500;
+}
+
+.info-value {
+    color: var(--apple-text);
+}
+
+/* Form row styling */
+.form-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+/* Input container */
+.form-input-container {
+    position: relative;
+    padding-top: 20px; /* Space for error message */
+    width: 100%;
+}
+
+/* Form input styling */
+.form-input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--apple-divider);
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: var(--apple-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+
+.form-input.input-error {
+    border-color: var(--apple-error);
+}
+
+/* Error message styling */
+.error-message {
+    color: var(--apple-error);
+    font-size: 0.9em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    display: none;
+}
+
+.error-message.visible {
+    display: block;
+}
+
+/* Button Container */
+.button-container {
+    text-align: center;
+    margin-top: 10px; /* Reduced space between email field and button */
 }
 
 /* Responsive design */
@@ -111,13 +214,17 @@ h1 {
         font-size: 26px;
     }
 
-    .table th,
-    .table td {
-        padding: 12px 14px;
-        font-size: 14px;
+    .info-row,
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
     }
 
     .btn {
         width: 100%;
+    }
+
+    .details-panel {
+        padding: 15px;
     }
 }

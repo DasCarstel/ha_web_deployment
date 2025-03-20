@@ -7,41 +7,166 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Saalübersicht</title>
+    <!-- Mehrere Wege, CSS einzubinden, um Pfadprobleme zu umgehen -->
     <h:outputStylesheet library="css" name="KinoStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/KinoStyle.css"/>
+    <script type="text/javascript">
+        function validateTicketAmount() {
+            var parkettInput = document.getElementById('ticketForm:parkettAnzahl');
+            var logenInput = document.getElementById('ticketForm:logenAnzahl');
+
+            var parkettAnzahl = parseInt(parkettInput.value) || 0;
+            var logenAnzahl = parseInt(logenInput.value) || 0;
+            var gesamtAnzahl = parkettAnzahl + logenAnzahl;
+
+            if (gesamtAnzahl &lt;= 0) {
+                alert("Bitte wählen Sie mindestens einen Platz aus.");
+                return false;
+            }
+
+            if (gesamtAnzahl > 20) {
+                alert("Bei Bestellungen von mehr als 20 Tickets bitten wir Sie, telefonisch Kontakt mit uns aufzunehmen.");
+                return false;
+            }
+            return true;
+        }
+
+        function validateParkettAnzahl(input) {
+            var anzahl = parseInt(input.value) || 0;
+            var errorElement = document.getElementById('parkettError');
+            var freieParkett = parseInt(document.getElementById('freieParkett').textContent);
+
+            if (anzahl &lt; 0) {
+                errorElement.textContent = "Anzahl kann nicht negativ sein";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
+                return false;
+            } else if (anzahl > freieParkett) {
+                errorElement.textContent = "Es sind nur " + freieParkett + " Parkettplätze verfügbar";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
+                return false;
+            } else {
+                errorElement.className = "error-message";
+                input.className = input.className.replace(" input-error", "");
+                return true;
+            }
+        }
+
+        function validateLogenAnzahl(input) {
+            var anzahl = parseInt(input.value) || 0;
+            var errorElement = document.getElementById('logenError');
+            var freieLogen = parseInt(document.getElementById('freieLogen').textContent);
+
+            if (anzahl &lt; 0) {
+                errorElement.textContent = "Anzahl kann nicht negativ sein";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
+                return false;
+            } else if (anzahl > freieLogen) {
+                errorElement.textContent = "Es sind nur " + freieLogen + " Logenplätze verfügbar";
+                errorElement.className = "error-message visible";
+                input.className = input.className + " input-error";
+                return false;
+            } else {
+                errorElement.className = "error-message";
+                input.className = input.className.replace(" input-error", "");
+                return true;
+            }
+        }
+    </script>
+    <style type="text/css">
+        .centered-heading {
+            text-align: center;
+            font-weight: normal;
+        }
+    </style>
 </h:head>
 <h:body>
-    <h1>Saalübersicht für Vorstellung</h1>
-
-    <h:panelGrid columns="2" styleClass="details-panel">
-        <h:outputLabel value="Film:" />
-        <h:outputText value="#{saalBean.selectedVorstellung.film.titel}" />
-
-        <h:outputLabel value="Datum und Uhrzeit:" />
-        <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
-            <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
-        </h:outputText>
-
-        <h:outputLabel value="Saal:" />
-        <h:outputText value="#{saalBean.selectedVorstellung.saal.saalId}" />
-
-        <h:outputLabel value="Ausstattung:" />
-        <h:outputText value="#{saalBean.selectedVorstellung.saal.ausstattung}" />
-    </h:panelGrid>
-
-    <h2>Verfügbare Plätze</h2>
-
-    <h:panelGrid columns="2" styleClass="details-panel">
-        <h:outputLabel value="Freie Parkettplätze:" />
-        <h:outputText value="#{saalBean.freieParkett}" />
-
-        <h:outputLabel value="Freie Logenplätze:" />
-        <h:outputText value="#{saalBean.freieLoge}" />
-    </h:panelGrid>
-
     <h:form>
         <h:commandButton value="Zurück zur Vorstellungsübersicht"
                          action="Vorstellungen?faces-redirect=true"
                          styleClass="btn" />
     </h:form>
+
+    <h1>Saalübersicht für Vorstellung</h1>
+
+    <div class="details-panel info-panel">
+        <div class="info-row">
+            <div class="info-label">Film:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.film.titel}</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Datum und Uhrzeit:</div>
+            <div class="info-value">
+                <h:outputText value="#{saalBean.selectedVorstellung.vorfuehrungszeit}">
+                    <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
+                </h:outputText>
+            </div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Saal:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.saal.saalId}</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Ausstattung:</div>
+            <div class="info-value">#{saalBean.selectedVorstellung.saal.ausstattung}</div>
+        </div>
+    </div>
+
+    <h2 class="centered-heading">Verfügbare Plätze</h2>
+
+    <div class="details-panel input-panel">
+        <div class="info-row">
+            <div class="info-label">Freie Parkettplätze:</div>
+            <div class="info-value" id="freieParkett">#{saalBean.freieParkett}</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Freie Logenplätze:</div>
+            <div class="info-value" id="freieLogen">#{saalBean.freieLoge}</div>
+        </div>
+
+        <h:form id="ticketForm" onsubmit="return validateTicketAmount()">
+            <div class="form-row">
+                <div class="form-label">Anzahl Parkettplätze:</div>
+                <div class="form-input-container">
+                    <div id="parkettError" class="error-message"></div>
+                    <h:inputText id="parkettAnzahl"
+                                 value="#{ticketBean.parkettAnzahl}"
+                                 required="true"
+                                 requiredMessage="Bitte geben Sie eine Anzahl ein"
+                                 styleClass="form-input"
+                                 onblur="validateParkettAnzahl(this)">
+                        <f:validateLongRange minimum="0" />
+                    </h:inputText>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Anzahl Logenplätze:</div>
+                <div class="form-input-container">
+                    <div id="logenError" class="error-message"></div>
+                    <h:inputText id="logenAnzahl"
+                                 value="#{ticketBean.logenAnzahl}"
+                                 required="true"
+                                 requiredMessage="Bitte geben Sie eine Anzahl ein"
+                                 styleClass="form-input"
+                                 onblur="validateLogenAnzahl(this)">
+                        <f:validateLongRange minimum="0" />
+                    </h:inputText>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <h:commandButton value="Weiter zur Datenaufnahme"
+                                 action="#{ticketBean.weiterZurDatenaufnahme}"
+                                 styleClass="btn" />
+            </div>
+        </h:form>
+    </div>
 </h:body>
 </html>

@@ -10,36 +10,37 @@
     <h:outputStylesheet library="css" name="KinoStyle.css"/>
 </h:head>
 <h:body>
+    <h:form>
+        <h:commandButton value="Zurück zur Filmübersicht" action="Filme" styleClass="btn" />
+    </h:form>
+
     <h1>Vorstellungen für "#{vorstellungBean.selectedFilm.titel}"</h1>
 
     <h:dataTable value="#{vorstellungBean.vorstellungList}" var="vorstellung" styleClass="table">
         <h:column>
             <f:facet name="header">Datum und Uhrzeit</f:facet>
-            <h:outputText value="#{vorstellung.vorfuehrungszeit}">
+            <h:outputText value="#{vorstellung.vorfuehrungszeit}" style="display: block; text-align: center;">
                 <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm" />
             </h:outputText>
         </h:column>
 
         <h:column>
             <f:facet name="header">Saal</f:facet>
-            #{vorstellung.saal.saalId}
+            <h:outputText value="#{vorstellung.saal.saalId}" style="display: block; text-align: center;" />
         </h:column>
 
         <h:column>
             <f:facet name="header">Ausstattung</f:facet>
-            #{vorstellung.saal.ausstattung}
+            <h:outputText value="#{vorstellung.saal.ausstattung}" style="display: block; text-align: center;" />
         </h:column>
 
         <h:column>
             <f:facet name="header">Aktion</f:facet>
-            <h:form>
-                <h:commandButton value="Buchen" action="#{saalBean.selectVorstellung(vorstellung)}" styleClass="btn" />
+            <h:form style="display: flex; align-items: center; justify-content: center; height: 100%; margin: 0;">
+                <h:commandButton value="Buchen" action="#{saalBean.selectVorstellung(vorstellung)}" styleClass="btn" style="margin: auto;" />
             </h:form>
         </h:column>
     </h:dataTable>
 
-    <h:form>
-        <h:commandButton value="Zurück zur Filmübersicht" action="Filme" styleClass="btn" />
-    </h:form>
 </h:body>
 </html>
