@@ -1,7 +1,7 @@
 # Cineplex - Kinobuchungssystem
 
 ## Überblick
-Dieses Repository enthält ein Uni-Projekt für die IU Internationale Hochschule, das im Rahmen eines Kurses für Webentwicklung erstellt wurde. Es handelt sich um ein Java-Web-Projekt für ein Kinobuchungssystem, das mit Hibernate als ORM und JSF für die Views entwickelt wurde.
+Dieses Repository enthält ein Uni-Projekt für die IU Internationale Hochschule, das im Rahmen eines Kurses für Webentwicklung erstellt wurde. Es handelt sich um ein Java-Web-Projekt für ein Kinobuchungssystem, das mit Hibernate als ORM, JSF für die Views und Bootstrap für das UI entwickelt wurde.
 
 ## Projektbeschreibung
 Das Projekt implementiert ein vollständiges Kinobuchungssystem mit folgenden Funktionalitäten:
@@ -12,7 +12,7 @@ Das Projekt implementiert ein vollständiges Kinobuchungssystem mit folgenden Fu
 
 ## Technische Details
 - **Backend**: Java mit Hibernate ORM
-- **Frontend**: JSF (JavaServer Faces)
+- **Frontend**: JSF (JavaServer Faces) mit Bootstrap
 - **Datenbankanbindung**: MySQL über Hibernate
 - **Build-System**: Maven
 - **Server**: GlassFish
@@ -51,7 +51,9 @@ Dieses Projekt muss in NetBeans importiert und ausgeführt werden. Für die erfo
 4. **Projekt ausführen**:
    - Klicken Sie mit der rechten Maustaste auf das Projekt
    - Wählen Sie `Run`
-   - Das Projekt wird kompiliert, auf dem GlassFish-Server deployed und im Browser geöffnet
+   - Das Projekt wird kompiliert und auf dem GlassFish-Server deployed
+
+> **Wichtiger Hinweis**: Nach dem Deployment wird die Webseite möglicherweise nicht automatisch im Browser geöffnet. Falls dies der Fall ist, navigieren Sie manuell zur Adresse: http://localhost:8080/ha_web_deployment/
 
 ### Detaillierte Anleitungen
 
@@ -121,6 +123,7 @@ cineplex/
 ## Bekannte Einschränkungen
 - Der erste Start kann länger dauern, da Hibernate die Datenbank automatisch erstellt
 - Bei Problemen mit der Datenbankverbindung bitte überprüfen, ob der Docker-Container korrekt läuft
+- **Wichtig**: Nach dem Deployment wird die Webseite möglicherweise nicht automatisch im Browser geöffnet. Falls dies der Fall ist, navigieren Sie manuell zur Adresse: http://localhost:8080/ha_web_deployment/
 
 ---
 
