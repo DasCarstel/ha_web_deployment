@@ -50,7 +50,7 @@ docker-compose up -d
 #### 6. Anwendung starten
 
 Nach erfolgreicher Konfiguration kannst du den Server über den Run-Button starten.
-Deine Anwendung sollte unter `http://localhost:8080/ha_web_deployment-1.0-SNAPSHOT/` verfügbar sein.
+Deine Anwendung sollte unter `http://localhost:8080/ha_web_deployment/` verfügbar sein.
 
 
 ---
