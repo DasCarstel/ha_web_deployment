@@ -11,11 +11,11 @@ Das Projekt implementiert ein vollständiges Kinobuchungssystem mit folgenden Fu
 - Buchungsprozess
 
 ## Technische Details
-- **Backend**: Java mit Hibernate ORM
+- **Backend**: Java 23 mit Hibernate ORM
 - **Frontend**: JSF (JavaServer Faces) mit Bootstrap
 - **Datenbankanbindung**: MySQL über Hibernate
 - **Build-System**: Maven
-- **Server**: GlassFish
+- **Server**: GlassFish 7.0.22
 
 ## Ausführungsanleitung
 
