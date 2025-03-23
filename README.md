@@ -67,7 +67,7 @@ Für eine ausführlichere Anleitung zur Einrichtung und zum Starten des Projekts
 Das Projekt folgt der Standard-Maven-Projektstruktur:
 
 ```
-cineplex/
+ha_web_deployment/
 ├── src/
 │   ├── main/
 │   │   ├── java/                         # Java-Quellcode
@@ -87,7 +87,7 @@ cineplex/
 │   │   │           └── Vorstellung.java  # Vorstellung-Entity
 │   │   ├── resources/                    # Ressourcendateien
 │   │   │   ├── db_init/                  # Datenbank-Initialisierung
-│   │   │   │   └── init.sql              # SQL-Skript
+│   │   │   │   └── 102203984.sql          # SQL-Skript
 │   │   │   ├── META-INF/
 │   │   │   │   └── persistence.xml       # JPA-Konfiguration
 │   │   │   └── hibernate.cfg.xml         # Hibernate-Konfiguration
@@ -113,6 +113,7 @@ cineplex/
 
 ## Wichtige Hinweise für die Bewertung
 
+-  Das **SQL-Skript** zur Generierung der Tabellen ist [hier](src\main\resources\db_init\102203984.sql) zu finden. 
 - Die Datenbankverbindung wird **ausschließlich** über `hibernate.cfg.xml` hergestellt, wie in der Aufgabenstellung gefordert.
 - Für jedes Modell wurde ein entsprechender Controller und eine View erstellt.
 - Die Benutzeroberfläche verwendet ein modernes, responsive Design mit CSS.
