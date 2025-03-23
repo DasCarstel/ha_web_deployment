@@ -1,6 +1,6 @@
 -- Create the database
-CREATE DATABASE IF NOT EXISTS MovieTheater;
-USE MovieTheater;
+CREATE DATABASE IF NOT EXISTS 102203984;
+USE 102203984;
 
 -- Create Film table
 CREATE TABLE Film (

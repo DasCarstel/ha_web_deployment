@@ -44,7 +44,7 @@ Dieses Projekt muss in NetBeans importiert und ausgeführt werden. Für die erfo
    - Die Standardzugangsdaten sind:
      - Host: localhost
      - Port: 3306
-     - Datenbank: MovieTheater
+     - Datenbank: 102203984
      - Benutzer: root
      - Passwort: 1234
 

@@ -100,7 +100,7 @@ Diese Anleitung beschreibt, wie du dein Jakarta Maven Projekt von IntelliJ nach 
    - Gib die Verbindungsinformationen ein:
      - Host: `localhost`
      - Port: `3306`
-     - Datenbank: `MovieTheater`
+     - Datenbank: `102203984`
      - Benutzer: `root`
      - Passwort: `1234` (wie in deiner `hibernate.cfg.xml` angegeben).
    - Klicke auf **Test Connection**, um sicherzustellen, dass die Verbindung funktioniert.
