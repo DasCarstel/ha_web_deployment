@@ -8,8 +8,8 @@ Diese Anleitung beschreibt die notwendigen Schritte, um eine Web-Anwendung mit G
 
 - IntelliJ IDEA
 - Docker
-- Java Development Kit (JDK)
-- GlassFish Server
+- Java Development Kit (JDK 23)
+- GlassFish Server 7.0.22
 
 ### Einrichtungsschritte
 

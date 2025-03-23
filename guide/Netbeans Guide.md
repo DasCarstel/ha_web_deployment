@@ -1,7 +1,3 @@
-Hier ist die aktualisierte Anleitung mit den gewünschten Ergänzungen:
-
----
-
 # Anleitung zum Import eines Jakarta Maven Projekts von IntelliJ nach NetBeans
 
 Diese Anleitung beschreibt, wie du dein Jakarta Maven Projekt von IntelliJ nach NetBeans migrieren kannst. Es handelt sich um eine Jakarta EE Webanwendung mit Maven als Build-Management-Tool.
@@ -9,10 +5,10 @@ Diese Anleitung beschreibt, wie du dein Jakarta Maven Projekt von IntelliJ nach 
 ---
 
 ## Voraussetzungen
-- **NetBeans IDE** (aktuelle Version empfohlen)
-- **Java Development Kit (JDK) 23** (wie in deinem Projekt angegeben)
-- **Maven** (sollte mit NetBeans mitgeliefert werden)
-- **GlassFish Server** (für Jakarta EE-Anwendungen)
+- **NetBeans IDE**
+- **Java Development Kit (JDK) 23**
+- **Maven**
+- **GlassFish Server 7.0.22**
 - **Docker**
 
 ---
