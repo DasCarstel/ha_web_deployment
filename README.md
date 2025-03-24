@@ -116,7 +116,7 @@ ha_web_deployment/
 
 ## Wichtige Hinweise für die Bewertung
 
--  Das **SQL-Skript** zur Generierung der Tabellen ist [hier](src\main\resources\db_init\102203984.sql) zu finden. 
+-  Das **SQL-Skript** zur Generierung der Tabellen ist [hier](/src/main/resources/db_init/102203984.sql) zu finden. 
 - Die Datenbankverbindung wird **ausschließlich** über `hibernate.cfg.xml` hergestellt, wie in der Aufgabenstellung gefordert.
 - Für jedes Modell wurde ein entsprechender Controller und eine View erstellt.
 - Die Benutzeroberfläche verwendet ein modernes, responsive Design mit CSS.
