@@ -1,6 +1,9 @@
 # Kinobuchungssystem
 
 ## Überblick
+
+![Saele.xhtml](/pictures/Saele.xhtml.png)
+
 Dieses Repository enthält ein Uni-Projekt für die IU Internationale Hochschule, das im Rahmen eines Kurses für Webentwicklung erstellt wurde. Es handelt sich um ein Java-Web-Projekt für ein Kinobuchungssystem, das mit Hibernate als ORM, JSF für die Views und Bootstrap für das UI entwickelt wurde.
 
 ## Projektbeschreibung
