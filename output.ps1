@@ -1,8 +1,11 @@
-# Pfad zum Ordner, der durchsucht werden soll
-$sourceFolder = "C:\Users\carst\IdeaProjects\ha_web_deployment"
+# Pfad zum Ordner, der durchsucht werden soll (aktuelles Verzeichnis)
+$sourceFolder = $PWD.Path
 
-# Pfad zur Ausgabedatei
-$outputFile = "C:\Users\carst\IdeaProjects\ha_web_deployment\output.txt"
+# Holen des aktuellen Ordnernamens
+$currentFolderName = Split-Path -Path $sourceFolder -Leaf
+
+# Pfad zur Ausgabedatei im selben Verzeichnis
+$outputFile = Join-Path -Path $sourceFolder -ChildPath "output.txt"
 
 # Liste der zu verarbeitenden Pfade (als Array)
 # Diese können relative Pfade zum $sourceFolder sein oder Dateiendungen oder Muster
@@ -32,6 +35,9 @@ $errorFiles = 0
 Get-ChildItem -Path $sourceFolder -Recurse -File | ForEach-Object {
     $filePath = $_.FullName
     $relativePath = $filePath.Substring($sourceFolder.Length)
+    if ($relativePath.StartsWith("\")) {
+        $relativePath = $relativePath.Substring(1)  # Entfernt das führende \ für bessere Lesbarkeit
+    }
     $totalFiles++
 
     # Überprüfen, ob der Pfad verarbeitet werden soll
@@ -48,10 +54,11 @@ Get-ChildItem -Path $sourceFolder -Recurse -File | ForEach-Object {
     # Wenn die Datei in der Einschlussliste ist, verarbeite sie
     if ($shouldInclude) {
         $includedFiles++
-        Write-Host "Verarbeite Datei: $filePath (Entspricht Muster: $matchedPattern)" -ForegroundColor Green
+        Write-Host "Verarbeite Datei: $relativePath (Entspricht Muster: $matchedPattern)" -ForegroundColor Green
 
-        # Dateiinhalt lesen und in die Ausgabedatei schreiben
-        Add-Content -Path $outputFile -Value "### Datei: $filePath ###"
+        # Dateiinhalt lesen und in die Ausgabedatei schreiben mit Projektordnernamen und relativem Pfad
+        $projectRelativePath = "$currentFolderName/$relativePath"
+        Add-Content -Path $outputFile -Value "### Datei: $projectRelativePath ###"
 
         # Überprüfen, ob die Datei gelesen werden kann
         if (Test-Path -LiteralPath $_.FullName) {
@@ -63,13 +70,13 @@ Get-ChildItem -Path $sourceFolder -Recurse -File | ForEach-Object {
             catch {
                 Add-Content -Path $outputFile -Value "!!! FEHLER BEIM LESEN DER DATEI: $($_.Exception.Message) !!!"
                 Add-Content -Path $outputFile -Value "`n`n"
-                Write-Host "Fehler beim Lesen der Datei: $filePath - $($_.Exception.Message)" -ForegroundColor Red
+                Write-Host "Fehler beim Lesen der Datei: $relativePath - $($_.Exception.Message)" -ForegroundColor Red
                 $errorFiles++
             }
         } else {
             Add-Content -Path $outputFile -Value "!!! DATEI NICHT GEFUNDEN !!!"
             Add-Content -Path $outputFile -Value "`n`n"
-            Write-Host "Datei nicht gefunden: $filePath" -ForegroundColor Red
+            Write-Host "Datei nicht gefunden: $relativePath" -ForegroundColor Red
             $errorFiles++
         }
     }
